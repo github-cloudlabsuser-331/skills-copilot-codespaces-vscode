@@ -1,0 +1,21 @@
+# Create a GitHub action to email a report from a file at 6 a.m. daily
+
+name: Email Report
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  email_report:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
+    - name: Send email
+      run: aws ses send-email --from
